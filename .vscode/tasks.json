@@ -7,7 +7,7 @@
       "command": "python",
       "args": ["server.py"],
       "options": {
-        "cwd": "${workspaceFolder}/examples"
+        "cwd": "${workspaceFolder}/TaskExamples"
       },
       "isBackground": true,
       "problemMatcher": [],
@@ -23,7 +23,7 @@
       "command": "python",
       "args": ["client.py"],
       "options": {
-        "cwd": "${workspaceFolder}/examples"
+        "cwd": "${workspaceFolder}/TaskExamples"
       },
       "problemMatcher": [],
       "presentation": {

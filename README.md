@@ -27,7 +27,7 @@ a2a/
 │   ├── task_state_diagram.png         # Rendered PNG
 │   ├── sequence_diagram.mmd           # Mermaid source -- protocol sequence
 │   └── sequence_diagram.png           # Rendered PNG
-└── examples/
+└── TaskExamples/
     ├── requirements.txt               # Python dependencies
     ├── server.py                      # A2A server (Travel Booking Agent)
     └── client.py                      # A2A client (walks through full lifecycle)
@@ -58,7 +58,7 @@ Everything is pre-configured: Python dependencies, port forwarding, extensions, 
 ### 1. Install dependencies
 
 ```bash
-cd examples
+cd TaskExamples
 
 # Using uv (recommended)
 uv venv --python 3.13
@@ -74,7 +74,7 @@ pip install -r requirements.txt
 ### 2. Start the server
 
 ```bash
-cd examples
+cd TaskExamples
 python server.py
 ```
 
@@ -87,7 +87,7 @@ INFO:     Uvicorn running on http://0.0.0.0:9999 (Press CTRL+C to quit)
 ### 3. Run the client (in a second terminal)
 
 ```bash
-cd examples
+cd TaskExamples
 source .venv/bin/activate
 python client.py
 ```
