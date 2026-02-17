@@ -1,0 +1,47 @@
+sequenceDiagram
+    participant Client as A2A Client
+    participant Server as A2A Server
+
+    rect rgb(240, 248, 255)
+        Note over Client,Server: Phase 1 -- Agent Discovery
+        Client->>Server: GET /.well-known/agent-card.json
+        Server-->>Client: AgentCard { name, skills, capabilities, endpoint }
+    end
+
+    rect rgba(200, 200, 200, 0.15)
+        Note over Client,Server: Context: ctx-001 (all tasks share this conversation)
+
+        rect rgb(245, 240, 255)
+            Note over Client,Server: Phase 2 -- Initial Message (Task 1 Created)
+            Client->>Server: message/send { contextId: ctx-001,<br/>"Book a flight to Paris" }
+            Note right of Server: Task 1 created (SUBMITTED)
+            Note right of Server: Agent starts processing (WORKING)
+            Note right of Server: Agent needs travel dates (INPUT_REQUIRED)
+            Server-->>Client: Task { id: task-001, contextId: ctx-001,<br/>status: INPUT_REQUIRED,<br/>message: "What dates would you like to travel?" }
+        end
+
+        rect rgb(255, 243, 205)
+            Note over Client,Server: Phase 3 -- Multi-Turn (Client Provides Input)
+            Client->>Server: message/send { contextId: ctx-001,<br/>taskId: task-001, "March 15-22, 2026" }
+            Note right of Server: Task 1 resumes (WORKING)
+            Note right of Server: Booking confirmed (COMPLETED)
+            Server-->>Client: Task { id: task-001, status: COMPLETED,<br/>artifacts: [{ "Flight booking confirmation" }] }
+        end
+
+        rect rgb(232, 245, 233)
+            Note over Client,Server: Phase 4 -- Task Retrieval (Optional)
+            Client->>Server: tasks/get { id: task-001 }
+            Server-->>Client: Task { id: task-001, status: COMPLETED, artifacts, history }
+        end
+
+        rect rgb(235, 245, 255)
+            Note over Client,Server: Phase 5 -- New Task in Same Context
+            Client->>Server: message/send { contextId: ctx-001,<br/>"Book a hotel near the airport in Paris" }
+            Note right of Server: Task 2 created (SUBMITTED)
+            Note right of Server: Agent processes request (WORKING)
+            Note right of Server: Hotel booked (COMPLETED)
+            Server-->>Client: Task { id: task-002, contextId: ctx-001,<br/>status: COMPLETED,<br/>artifacts: [{ "Hotel booking confirmation" }] }
+            Note over Client,Server: Task 1 remains COMPLETED (immutable).<br/>Task 2 is a new unit of work in the same conversation.
+        end
+
+    end

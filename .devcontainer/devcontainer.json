@@ -1,0 +1,36 @@
+{
+  "name": "A2A Protocol Deep Dive",
+  "image": "mcr.microsoft.com/devcontainers/python:3.13",
+
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "lts"
+    }
+  },
+
+  "forwardPorts": [9999],
+  "portsAttributes": {
+    "9999": {
+      "label": "A2A Server",
+      "onAutoForward": "notify"
+    }
+  },
+
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "python.terminal.activateEnvironment": false,
+        "[python]": {
+          "editor.defaultFormatter": "ms-python.python"
+        }
+      },
+      "extensions": [
+        "ms-python.python",
+        "ms-python.debugpy",
+        "bierner.markdown-mermaid"
+      ]
+    }
+  }
+}

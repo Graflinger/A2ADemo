@@ -1,0 +1,28 @@
+flowchart LR
+    START(( )) ==>|Client sends<br/>message| SUBMITTED
+
+    SUBMITTED:::initial ==>|Starts<br/>processing| WORKING
+    SUBMITTED ==>|Declines| REJECTED
+
+    WORKING:::active ==>|Success| COMPLETED
+    WORKING ==>|Error| FAILED
+    WORKING ==>|Cancel| CANCELED
+    WORKING ==>|Needs info| INPUT_REQUIRED
+    WORKING ==>|Needs auth| AUTH_REQUIRED
+
+    INPUT_REQUIRED:::interrupted ==>|Input<br/>provided| WORKING
+    INPUT_REQUIRED ==>|Cancel| CANCELED
+
+    AUTH_REQUIRED:::interrupted ==>|Auth<br/>provided| WORKING
+    AUTH_REQUIRED ==>|Cancel| CANCELED
+
+    classDef initial fill:#e2e3e5,stroke:#6c757d,color:#383d41
+    classDef active fill:#cce5ff,stroke:#004085,color:#004085
+    classDef interrupted fill:#fff3cd,stroke:#ffc107,color:#856404
+    classDef terminal fill:#d4edda,stroke:#28a745,color:#155724
+    classDef terminalFail fill:#f8d7da,stroke:#dc3545,color:#721c24
+
+    class COMPLETED terminal
+    class FAILED terminalFail
+    class CANCELED terminalFail
+    class REJECTED terminalFail

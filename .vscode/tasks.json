@@ -1,0 +1,49 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Start A2A Server",
+      "type": "process",
+      "command": "python",
+      "args": ["server.py"],
+      "options": {
+        "cwd": "${workspaceFolder}/examples"
+      },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "group": "a2a"
+      }
+    },
+    {
+      "label": "Run A2A Client",
+      "type": "process",
+      "command": "python",
+      "args": ["client.py"],
+      "options": {
+        "cwd": "${workspaceFolder}/examples"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "group": "a2a"
+      }
+    },
+    {
+      "label": "Regenerate Diagrams",
+      "type": "shell",
+      "command": "mmdc -i diagrams/task_state_diagram.mmd -o diagrams/task_state_diagram.png -b transparent --scale 2 && mmdc -i diagrams/sequence_diagram.mmd -o diagrams/sequence_diagram.png -b transparent --scale 2",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    }
+  ]
+}
