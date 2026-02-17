@@ -8,7 +8,8 @@ Code, diagrams, and examples for the Medium blog post:
 A hands-on exploration of the A2A (Agent-to-Agent) protocol's task lifecycle, covering:
 
 - The 9 task states and their transitions
-- Multi-turn conversation flow (discovery -> message -> input-required -> completed)
+- How **contexts** group multiple tasks into a single conversation
+- Multi-turn conversation flow (discovery -> message -> input-required -> completed -> new task in context)
 - A working Travel Booking Agent built with the official `a2a-sdk`
 
 ## Repository Structure
@@ -43,7 +44,7 @@ The fastest way to get running -- works with **GitHub Codespaces** or **VS Code 
    - **Run A2A Client** -- runs the client demo against the server
    - **Regenerate Diagrams** -- rebuilds PNGs from `.mmd` sources
 
-Everything is pre-configured: Python venv, port forwarding, extensions, and run tasks.
+Everything is pre-configured: Python dependencies, port forwarding, extensions, and run tasks.
 
 ## Manual Setup
 
@@ -97,6 +98,7 @@ The client walks through the full A2A task lifecycle:
 2. **Initial message** -- sends "Book a flight to Paris" and receives an `input-required` response
 3. **Multi-turn follow-up** -- provides travel dates and gets a `completed` response with a booking artifact
 4. **Task retrieval** -- fetches the task by ID to confirm its final state
+5. **New task in same context** -- sends "Book a hotel near the airport in Paris" with the same `contextId` but no `taskId`, creating a second task within the same conversation
 
 ## Regenerating Diagrams
 
@@ -106,10 +108,6 @@ If you modify the `.mmd` files, regenerate the PNGs with:
 npx @mermaid-js/mermaid-cli mmdc -i diagrams/task_state_diagram.mmd -o diagrams/task_state_diagram.png -b transparent
 npx @mermaid-js/mermaid-cli mmdc -i diagrams/sequence_diagram.mmd -o diagrams/sequence_diagram.png -b transparent
 ```
-
-## Blog Post
-
-The full blog post is in [`blog.md`](./blog.md). A Part 2 covering streaming (SSE) and push notifications is planned.
 
 ## License
 
